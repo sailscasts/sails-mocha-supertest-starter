@@ -6,8 +6,9 @@ exports.mochaHooks = {
     sails.lift({
       environment: 'test'
     }, (error, sails) => {
+      if (error) {return done(error);}
       global.app = require('supertest')(sails.hooks.http.app);
-      return done(error, sails);
+      return done();
     });
   },
   afterAll (done) {
